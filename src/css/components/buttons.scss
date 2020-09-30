@@ -1,0 +1,26 @@
+.button {
+    height: 4.4rem;
+    width: 4.4rem;
+
+    background: rgba(180, 184, 187, .7);
+    cursor: pointer;
+}
+
+.button_refresh-bg {
+    border-radius: 20%;
+    // background: rgba(180, 184, 187, .7);
+    // url('../img/update-button.svg') no-repeat bottom;
+}
+
+.button_select-language {
+    width: 7.1rem;
+
+    font-size: 1.4rem;
+    font-weight: 700;
+
+    border-radius: 10%;
+}
+
+.units {
+    display: flex;
+}
