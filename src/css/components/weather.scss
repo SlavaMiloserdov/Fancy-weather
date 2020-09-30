@@ -1,0 +1,60 @@
+.weather {
+  width: 50%;
+  font-size: 2.2rem;
+}
+
+.weather__location {
+  margin: 0;
+
+  font-size: 4.4rem;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.weather__date {
+  margin: 0;
+  font-size: 2.4rem;
+}
+
+.weather__today {
+  display: flex;
+  justify-content: space-between;
+}
+
+.temperature-today {
+  font-size: 12rem;
+}
+
+.weather__icon {
+  height: 150px;
+  position: absolute;
+  left: 300px;
+}
+
+.weather__description {
+  padding: 0 0 0 70px;
+}
+
+.weather__forecast {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forecast {
+  position: relative;
+}
+
+.forecast__day {
+  text-transform: uppercase;
+}
+
+.forecast__temperature {
+  font-size: 4rem;
+}
+
+.forecast__icon {
+  position: absolute;
+  top: 10px;
+  left: 80%;
+}

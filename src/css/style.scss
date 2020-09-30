@@ -1,9 +1,11 @@
 @import "abstracts/variables";
 
 @import "components/buttons";
+@import "components/weather";
 
 @import "layout/header";
 @import 'layout/forms';
+@import 'layout/main';
 
 html {
   font-size: 10px;
