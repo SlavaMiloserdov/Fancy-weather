@@ -12,7 +12,7 @@ export default function setDate(lang='en-EN', timeZone) {
     const arrayOfForecastEl = document.querySelectorAll('.forecast');
     const currentDate = (new Date()).getDay();
     arrayOfForecastEl.forEach((forecastEl, index) => {
-        forecastEl.querySelector('.forecast__day').textContent = DAYS_OF_WEEK[currentDate + index + 1];
+        forecastEl.querySelector('.forecast__day').textContent = DAYS_OF_WEEK[currentDate + index + 1] || DAYS_OF_WEEK[currentDate + index + 1 - DAYS_OF_WEEK.length];
     });
 }
 

@@ -4,6 +4,7 @@ import renderMain from './render/main';
 import {getCurrentLocation, setLocation} from './location';
 import setDate from './date';
 import {getWeather, setWeather} from './weather';
+import renderMap from './map';
 
 renderHeader();
 renderMain();
@@ -14,13 +15,14 @@ let currentTimeZone;
 
 currentLocation.then(location => {
     setLocation(location);
-    // console.log(location);
     currentTimeZone = location.timezone;
     setDate(currentLanguage, currentTimeZone);
     getWeather(location.city, location.country, 'M', 'en').then(weather => {
         setWeather(weather);
     });
+    renderMap(location.loc.split(','));
 });
+
 
 
 
