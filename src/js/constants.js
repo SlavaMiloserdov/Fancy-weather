@@ -1,9 +1,9 @@
 export const TOKENS = {
     'ipinfo': '96adc508b73e72',
-    // 'mapbox': 'sk.eyJ1IjoidmlhY2hlc2xhdjExOTEiLCJhIjoiY2thdXV2Zmh5MGpvcDJxcGd2djIxZ3BneSJ9.cyRrADYfoP5t-48i9Gq3HQ',
     'weatherbit': 'c8ca63b1326d4e829b80fab825e966ee',
     'yandex': 'feb1d64b-888c-4f0e-9598-8e070cdd794d',
     // 'unsplash': 'WZOmC45FwOmMgsU86L_lpINnNaNhhAS7KscJb5ZEWt4'
+    'opencage': 'a6d1da3003b24571ba3f930d6d4e4ff5',
 };
 
 export const COUNTRIES = {

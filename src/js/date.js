@@ -1,10 +1,13 @@
 import {DAYS_OF_WEEK} from './constants';
 
+let refreshIntervalId;
+
 export default function setDate(lang='en-EN', timeZone) {
+    clearInterval(refreshIntervalId);
     const dateEl = document.querySelector('.weather__date');
     const options = { weekday: 'short', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', second: 'numeric' };
     options.timeZone = timeZone;    
-    setInterval(() => {
+    refreshIntervalId = setInterval(() => {
         const newDate = new Date();
         dateEl.textContent = newDate.toLocaleString(lang, options);
     }, 1000);

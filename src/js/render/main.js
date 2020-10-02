@@ -6,7 +6,12 @@ export default function renderMain() {
             <div class=weather__today>
                 <p class=temperature-today></p>
                 <img class=weather__icon>
-                <div class=weather__description></div>                
+                <div class=weather__description>
+                    <p class=description__info></p>
+                    <p class=description__feels-like></p> 
+                    <p class=description__wind></p>
+                    <p class=description__humidity></p>
+                </div>                
             </div>            
             <div class=weather__forecast>   
                 <div class=forecast>
