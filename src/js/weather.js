@@ -1,11 +1,14 @@
 import {TOKENS, DAYS_OF_WEEK} from './constants';
 
 export async function getWeather(city, country, units='S', language) {
-    const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&country=${country}&days=4&units=${units}&lang=${language}&key=${TOKENS.weatherbit}`;
+    let url;
+    if (country === 'Russia') {
+        url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&country=${country}&days=4&units=${units}&lang=${language}&key=${TOKENS.weatherbit}`;
+    } else {
+        url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&days=4&units=${units}&lang=${language}&key=${TOKENS.weatherbit}`;
+    }
     const res = await fetch(url);
-    // console.log(res);
     const data = await res.json();
-    // console.log(data);
     return data;
 }
 
@@ -20,7 +23,6 @@ export function setWeather(weatherObj) {
     weatherTodayDescriptionEl.querySelector('.description__feels-like').textContent = `FEELS LIKE: ${weatherObj.data[0].max_temp}`;
     weatherTodayDescriptionEl.querySelector('.description__wind').textContent = `WIND: ${Math.round(weatherObj.data[0].wind_spd)} M/S`;
     weatherTodayDescriptionEl.querySelector('.description__humidity').textContent = `HUMIDITY: ${Math.round(weatherObj.data[0].rh)}%`;
-
 
     arrayOfForecastEl.forEach((forecastEl, index) => {
         forecastEl.querySelector('.forecast__temperature').textContent = `${Math.round(weatherObj.data[index + 1].max_temp)}°`;

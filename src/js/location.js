@@ -1,9 +1,15 @@
-import {TOKENS, COUNTRIES} from './constants';
+import { TOKENS, COUNTRIES } from './constants';
 
 export async function getCurrentLocation() {
     const url = `https://ipinfo.io/json?token=${TOKENS.ipinfo}`;
     const res = await fetch(url);
     const data = await res.json();
+
+    const url1 = `http://ip-api.com/json?lang=ru`;
+    const res1 = await fetch(url1);
+    const data1 = await res1.json();
+    console.log(data, data1);
+
     return data;
 }
 
