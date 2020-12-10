@@ -1,7 +1,17 @@
 .search {
     display: flex;
+
+    @media (max-width: 479px) {
+    flex-direction: column;
+    align-items: center;
+    }
+    
 }
 
 .form_input {
     height: 4.4rem;
+
+    background-color: rgba(180,184,187,.7);
+    border-radius: 10px;
+    font-size: 2rem;
 }

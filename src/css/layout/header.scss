@@ -2,10 +2,16 @@
     width: 90%;
     margin: 0 auto;
     padding: 40px 0;
-
+    border-radius: 50px;
     display: flex;
     justify-content: space-between;
-    background-color: #ffffff66;
+    // background-color: #00000066;
+
+    /* Landscape phones and portrait tablets */
+    @media (max-width: 767px) {
+        align-items: center;
+        flex-direction: column;
+    }
 }
 
 .buttons {
@@ -13,4 +19,8 @@
 
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 767px) {
+        padding: 10px;
+    }
 }

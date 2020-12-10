@@ -1,6 +1,11 @@
 .weather {
   width: 50%;
   font-size: 2.2rem;
+  font-weight: 500;
+
+  @media (max-width: 991px) {
+    width: 90%;
+  }
 }
 
 .weather__location {
@@ -9,7 +14,7 @@
   font-size: 4.4rem;
   font-style: normal;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: uppercase;   
 }
 
 .weather__date {
@@ -17,19 +22,45 @@
   font-size: 2.4rem;
 }
 
+.weather__location, .weather__date {
+  @media (max-width: 767px) {
+    text-align: center;
+  } 
+}
+
 .weather__today {
   display: flex;
   justify-content: space-between;
+  position: relative;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  }  
 }
 
 .temperature-today {
-  font-size: 12rem;
+  font-size: 13rem;
 }
 
 .weather__icon {
-  height: 150px;
+  height: 12vw;
   position: absolute;
-  left: 300px;
+  left: 30%;
+
+  @media (max-width: 991px) {
+    height: 20vw;
+  }
+
+  @media (max-width: 767px) {
+    left: 67%;
+    height: 30vw;
+  } 
+
+  @media (max-width: 479px) {
+    left: 30%;
+    height: 33vw;
+  } 
 }
 
 .weather__description {
@@ -39,6 +70,11 @@
 .weather__forecast {
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  } 
 }
 
 .forecast {
@@ -54,7 +90,14 @@
 }
 
 .forecast__icon {
+  height: 7vw;
   position: absolute;
-  top: 10px;
-  left: 80%;
-}
+  top: 30px;
+  left: 55%;
+
+  @media (max-width: 767px) {
+    height: 12vw;
+    top: 25%;
+  }
+} 
+  

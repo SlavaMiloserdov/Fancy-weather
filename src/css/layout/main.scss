@@ -4,5 +4,13 @@
     padding: 5% 0 0 0;
     display: flex;
     justify-content: space-between;
-    background-color: #ffffff66;
+    // background-color: #00000066;
+
+    border-radius: 50px;
+
+    /* Portrait tablets and small desktops */
+    @media (max-width: 991px) {
+        flex-direction: column;
+        align-items: center;
+    }
 }

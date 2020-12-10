@@ -29,7 +29,7 @@ export default function renderMain() {
             </div>            
         </div>
         <div class=map>
-            <div id="map" style="width: 400px; height: 400px"></div>
+            <div id="map"></div>
             <div class=coordinates>
             <p class=coordinates_latitude></p>
             <p class=coordinates_longitude></p>

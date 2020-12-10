@@ -9,49 +9,67 @@ import renderMap from './map';
 renderHeader();
 renderMain();
 
-const currentLocation = getCurrentLocation();
 let currentLanguage;
 let currentLanguageForDate;
 let currentTimeZone;
 let newLocation;
+let currentUnits = localStorage.getItem('currentUnits');
+const searchFormInput = document.querySelector('.form_input');
+
 if (!localStorage.getItem('currentUnits')) {
     localStorage.setItem('currentUnits', 'M');
 }
-let currentUnits = localStorage.getItem('currentUnits');
-const searchFormInput = document.querySelector('.form_input');
+
 if (!localStorage.getItem('currentLanguage')) {
     currentLanguage = 'en';
     currentLanguageForDate = 'en-EN';
+    Array.from(document.querySelectorAll('.button_select-language option'))[0].selected = true;
     localStorage.setItem('currentLanguage', currentLanguage);
-    localStorage.setItem('currentLanguageForDate', currentLanguageForDate);
 } else {
-    currentLanguage = localStorage.getItem('currentLanguage');
-    currentLanguageForDate = localStorage.getItem('currentLanguageForDate');
+    switch (localStorage.getItem('currentLanguage')) {
+        case 'ru':
+            currentLanguage = 'ru';
+            currentLanguageForDate = 'ru-RU';
+            Array.from(document.querySelectorAll('.button_select-language option'))[1].selected = true;
+            break;
+        case 'be':
+            currentLanguage = 'be';
+            currentLanguageForDate = 'be-BE';
+            Array.from(document.querySelectorAll('.button_select-language option'))[2].selected = true;
+            break;
+        default:
+            currentLanguage = 'en';
+            currentLanguageForDate = 'en-EN';
+            Array.from(document.querySelectorAll('.button_select-language option'))[0].selected = true;
+            break;
+    }
 }
 
-console.log(currentLanguage, currentLanguageForDate);
+
+const currentLocation = getCurrentLocation(currentLanguage);
+
+
 
 function updateInfoForCurrentLocation(currLocation) {
     currLocation.then(location => {
         setLocation(location);
         currentTimeZone = location.timezone;
-        setDate(currentLanguageForDate, currentTimeZone);
+        setDate(currentLanguageForDate, currentTimeZone, currentLanguage);
         getWeather(location.city, location.country, currentUnits, currentLanguage).then(weather => {
-            setWeather(weather);
+            setWeather(weather, currentLanguage);
         });
-        renderMap(location.loc.split(','));
+        renderMap([location.lat, location.lon], currentLanguage);
     });
 }
 
 updateInfoForCurrentLocation(currentLocation);
-
 
 const searchForm = document.querySelector('.search');
 
 function updateInfoForNewLocation(location) {
     let newCity;
     let newCountry;
-    location.then((data) => {
+    location.then(data => {
         try {
             if (!data) {
                 throw new Error('По Вашему запросу ничего не найдено');
@@ -63,17 +81,16 @@ function updateInfoForNewLocation(location) {
             }
             setLocation({
                 city: newCity,
-                country: data.components.country_code.toUpperCase()
+                country: newCountry
             });
-            //! setDate('en-EN', `${data.annotations.timezone.name}`);
-            setDate(currentLanguageForDate, `${data.annotations.timezone.name}`);
+            setDate(currentLanguageForDate, `${data.annotations.timezone.name}`, currentLanguage);
             getWeather(newCity, newCountry, currentUnits, currentLanguage).then(weather => {
-                setWeather(weather);
+                setWeather(weather, currentLanguage);
             });
             if (!data.geometry.lat || !data.geometry.lng) {
                 throw new Error('Отсутствуют данные о местоположении');
             }
-            renderMap([data.geometry.lat, data.geometry.lng]);
+            renderMap([data.geometry.lat, data.geometry.lng], currentLanguage);
         } catch (error) {
             alert(error);
             searchFormInput.value = '';
@@ -83,7 +100,7 @@ function updateInfoForNewLocation(location) {
 
 searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    newLocation = getLocationFromCity(searchFormInput.value);
+    newLocation = getLocationFromCity(searchFormInput.value, currentLanguage);
     updateInfoForNewLocation(newLocation);
 });
 
@@ -128,7 +145,9 @@ async function changeBackgroundPicture() {
     const image = document.createElement('img');
     image.src = `${urlForBackgroundPicture}`;
     image.onload = function () {
-        document.body.style.backgroundImage = `url(${urlForBackgroundPicture})`;
+        // document.body.style.backgroundImage = `url(${urlForBackgroundPicture})`;
+        document.body.style.background = `linear-gradient(rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%) center center / cover fixed, url(${urlForBackgroundPicture}) center center no-repeat fixed`;
+        document.body.style.backgroundSize = 'cover';
     }
 }
 
@@ -166,26 +185,31 @@ function changeCurrentUnits() {
 updateCurrentUnitsButton();
 
 function updateCurrentLanguage(event) {
-    console.dir(event.target.selectedIndex);
     switch (event.target.selectedIndex) {
         case 1:
             currentLanguage = 'ru';
             currentLanguageForDate = 'ru-RU';
             localStorage.setItem('currentLanguage', currentLanguage);
-            localStorage.setItem('currentLanguageForDate', currentLanguageForDate);
+            Array.from(document.querySelectorAll('.button_select-language option'))[1].selected = true;
             break;
         case 2:
             currentLanguage = 'be';
             currentLanguageForDate = 'be-BE';
             localStorage.setItem('currentLanguage', currentLanguage);
-            localStorage.setItem('currentLanguageForDate', currentLanguageForDate);
+            Array.from(document.querySelectorAll('.button_select-language option'))[2].selected = true;
             break;
         default:
             currentLanguage = 'en';
             currentLanguageForDate = 'en-EN';
             localStorage.setItem('currentLanguage', currentLanguage);
-            localStorage.setItem('currentLanguageForDate', currentLanguageForDate);
+            Array.from(document.querySelectorAll('.button_select-language option'))[0].selected = true;
             break;
+    }
+
+    if (!newLocation) {
+        updateInfoForCurrentLocation(getCurrentLocation(currentLanguage));
+    } else {
+        updateInfoForNewLocation(getLocationFromCity(searchFormInput.value, currentLanguage));
     }
 }
 
